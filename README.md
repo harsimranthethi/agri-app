@@ -1,6 +1,6 @@
-# React App for Simflix
+# Agri Sensor Feed Data
 
-This project is reposible for the frontend web application for Simflix Project.
+This project is reposible for the frontend web application for the Agridata Project.
 
 ## Available Scripts
 
