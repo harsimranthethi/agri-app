@@ -27,6 +27,7 @@ const MovieList = () => {
 
   }
 
+
   function loadData(){
     var server = process.env.NODE_ENV=="development"?"http://localhost:5566":"" //"http://localhost:5556"
     axios.get(server +'/sf/list?page='+currentPage + "&searchStr=" + searchStr)
@@ -40,9 +41,9 @@ const MovieList = () => {
   }
   useEffect(loadData, []); // Empty dependency array ensures the effect runs once on mount
 
-  const handleEditClick = (id) => {
+  /*const handleEditClick = (id) => {
     console.log(`Edit button clicked for movie with ID ${id}`);
-  };
+  };*/
 
   return (
     <div >
