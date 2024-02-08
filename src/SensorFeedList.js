@@ -52,7 +52,6 @@ const MovieList = () => {
 
       <div class="row">
         <div class="col-md-3 pb-3">
-          <input type="text" name="stringSearch" autocomplete="off" value={searchStr} onChange={(evt) => { searchChangeHandler(evt.target.value); }}/>
         </div>
         <div class="col-md-5">
         </div>
@@ -81,7 +80,7 @@ const MovieList = () => {
           {items.map(item => (
             <tr key={item.id}>
               <td>
-                <Link to={`/movies/${item._id}/show`}>{item._id}</Link>
+              <Link to={`/movies/${item._id}/show`}>{item._id}</Link>
               </td>
               <td>{item.Sensor_Id}</td>
               <td>{item.Field_Id}</td>
