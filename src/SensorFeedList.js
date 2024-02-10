@@ -49,22 +49,21 @@ const MovieList = () => {
     <div >
       <h1>Agri Sensor Feed - {process.env.NODE_ENV}</h1>
 
-
-      <div class="row">
-        <div class="col-md-3 pb-3">
+      <div className="row">
+        <div className="col-md-3 pb-3">
         </div>
-        <div class="col-md-5">
+        <div className="col-md-5">
         </div>
-        <div class="col-md-4">
-          <div class="pr-3">
+        <div className="col-md-4">
+          <div className="pr-3">
             <button onClick={()=>movePrevious()}>&lt; Prev</button>
-            <span class="p-2">{currentPage}</span>
+            <span className="p-2">{currentPage}</span>
             <button onClick={()=>moveNext()}>Next &gt;</button>
           </div>
         </div>
       </div>
       <br></br>
-      <table class="table table-bordered">
+      <table className="table table-bordered">
         <thead>
           <tr>
             <th width="10%">ID</th>

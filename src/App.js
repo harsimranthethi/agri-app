@@ -9,7 +9,7 @@ function App() {
  
  
   return (
-    <div className="App" class="container p-5">
+    <div className="App" className="container p-5">
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Navigate to="/sensorfeed/list" replace={true} />}/>
