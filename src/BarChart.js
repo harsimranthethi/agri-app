@@ -6,39 +6,6 @@ import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import { CategoryScale } from "chart.js";
 
-const Data = [
-  {
-    id: 1,
-    year: 2016,
-    userGain: 80000,
-    userLost: 823
-  },
-  {
-    id: 2,
-    year: 2017,
-    userGain: 45677,
-    userLost: 345
-  },
-  {
-    id: 3,
-    year: 2018,
-    userGain: 78888,
-    userLost: 555
-  },
-  {
-    id: 4,
-    year: 2019,
-    userGain: 90000,
-    userLost: 4555
-  },
-  {
-    id: 5,
-    year: 2020,
-    userGain: 4300,
-    userLost: 234
-  }
-];
-
 const options = {
   responsive: true,
   plugins: {
@@ -47,58 +14,65 @@ const options = {
     },
     title: {
       display: true,
-      text: 'Chart.js Bar Chart',
+      text: 'Bar Chart',
     },
   },
 };
-
-const data = {
-  labels: ['Red', 'Orange', 'Blue'],
-  // datasets is an array of objects where each object represents a set of data to display corresponding to the labels above. for brevity, we'll keep it at one object
-  datasets: [
-      {
-        label: 'Popularity of colours',
-        data: [15, 23, 96],
-        // you can set indiviual colors for each bar
-        backgroundColor: [
-          'red',
-          'green',
-          'blue'
-        ],
-        borderWidth: 1,
-      }
-  ]
-}
-
-console.log(Data)
 
 Chart.register(CategoryScale);
 
 
 export default function App() {
+
+
+  function loadData(){
+    var server = process.env.NODE_ENV=="development"?"http://localhost:5566":"" //"http://localhost:5556"
+    axios.get(server +'/sf/findAverageTemperatureBySensor')
+      .then(response => {
+        // Update state with fetched data
+        console.log(response.data)
+        var obj = response.data
+        console.log(obj)
+        setChartData({
+          labels: obj[0], 
+          datasets: [
+            {
+              label: "Sensors Avg Temp",
+              data: obj[1],
+              backgroundColor: [
+                "rgba(75,192,192,1)",
+                "#ecf0f1",
+                "#50AF95",
+                "#f3ba2f",
+                "#2a71d0"
+              ],
+              borderColor: "red",
+              borderWidth: 2
+            }
+          ]
+        })
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }
+  useEffect(loadData, []); // Empty dependency array ensures the effect runs once on mount
+
+
   const [chartData, setChartData] = useState({
-    labels: Data.map((data) => data.year), 
+    labels: [], 
     datasets: [
-      {
-        label: "Users Gained ",
-        data: Data.map((data) => data.userGain),
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0"
-        ],
-        borderColor: "black",
-        borderWidth: 2
-      }
     ]
   });
  
   return (
     <div>
       <p>Using Chart.js in React</p>
-      <Bar options={options} data={data}></Bar>
+      <div class="row">
+        <div class="col-6">
+          <Bar options={options} data={chartData}></Bar>
+        </div>
+      </div>
     </div>
   );
 }
